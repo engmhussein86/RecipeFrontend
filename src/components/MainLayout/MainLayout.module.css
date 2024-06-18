@@ -1,0 +1,21 @@
+.container {
+    height: 800px;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+.dark a {
+    color: white;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.light a {
+    color: hotpink;
+}
