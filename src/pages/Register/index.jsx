@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Register(){
 
@@ -19,7 +20,7 @@ export default function Register(){
             .then((response) => {
                 if(response.status ===201){
                     setSuccess("successfully created username : "+response.data.username+ " , You can login now ");
-                    navigateTo('/Login');
+                    // navigateTo('/Login');
                 }
 
               })
@@ -42,7 +43,7 @@ export default function Register(){
         <h2>Register</h2>
         <form onSubmit={handleSubmit} >
         {error && <div className="alert alert-danger">{error}</div>}
-        {success && <Alert key='success' variant='success'>{success}</Alert>}
+        {success && <Alert key='success' variant='success'><div>{success}<Link className="nav-link" to="/Login"  >Login </Link></div></Alert>}
            <div className="mb-3">
             <label htmlFor="username" className="form-label">Username</label>
             <input
