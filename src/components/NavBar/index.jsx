@@ -12,7 +12,7 @@ export default function NavBar() {
   const userCtx = useContext(UserContext);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 <div className="container-fluid">
         <Link className="navbar-brand" to="/">Recipe Manager</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,9 @@ export default function NavBar() {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/BookmarkRecipes"  > BookmarkRecipes </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/RandomRecipe"  > RandomRecipe </Link>
             </li>
           </ul>
         </div>

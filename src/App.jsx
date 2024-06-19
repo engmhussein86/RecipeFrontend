@@ -16,6 +16,7 @@ import Register from "./pages/Register";
 import CreateRecipe from "./pages/CreateRecipe";
 import BookmarkRecipes from "./pages/BookmarkRecipes";
 import RecipeDetails from "./pages/RecipeDetails";
+import RandomRecipe from "./pages/RandomRecipe";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -31,8 +32,10 @@ function App() {
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
               <Route path="/CreateRecipe" element={<CreateRecipe />} />
+              <Route path="/edit-recipe/:id" element={<CreateRecipe />} />
               <Route path="/BookmarkRecipes" element={<BookmarkRecipes />} />
-              <Route path="/Recipes/:id" element={<RecipeDetails />} />
+              <Route path="/Recipe/:id" element={<RecipeDetails />} />
+              <Route path="/RandomRecipe" element={<RandomRecipe />} />
             </Routes>
           </UserProvider>
         </MainLayout>
