@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import getBaseUrl from '../../utils/getBaseUrl';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CreateRecipe(){
   const baseURL = getBaseUrl();
+  const navigateTo = useNavigate();
     const params = useParams();
     console.log(params);
 
@@ -61,7 +63,7 @@ export default function CreateRecipe(){
     
           // Redirect or display success message
           alert('Recipe saved successfully!');
-          // Redirect to recipe list or recipe details page
+          navigateTo('/');
         } catch (err) {
           console.error('Error saving recipe', err);
           alert('Failed to save recipe. Please try again.');
