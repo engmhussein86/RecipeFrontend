@@ -2,13 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import axios from 'axios';
+import getBaseUrl from '../../utils/getBaseUrl';
 
+const baseURL = getBaseUrl();
 const DetailedRecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
   const token = localStorage.getItem('token');
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/recipes/${recipe._id}`, {
+      await axios.delete(`${baseURL}/recipes/${recipe._id}`, {
         headers: { 'x-auth-token': token },
       });
       onDelete(recipe._id);  // Callback to parent component
@@ -21,13 +23,13 @@ const DetailedRecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
     try {
       if (isBookmarked) {
         await axios.post(
-          'http://localhost:4000/bookmarks/remove',
+          `${baseURL}/bookmarks/remove`,
           { recipeId: recipe._id },
           { headers: { 'x-auth-token': token } }
         );
       } else {
         await axios.post(
-          'http://localhost:4000/bookmarks/add',
+          `${baseURL}/bookmarks/add`,
           { recipeId: recipe._id },
           { headers: { 'x-auth-token': token } }
         );
@@ -41,7 +43,7 @@ const DetailedRecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
   return (
     <div className="card mb-4">
         <div className="d-flex justify-content-center">
-      <img src={recipe.imageUrl}  style={{ width: '500px', height: '400px' }} alt={recipe.title} />
+      <img src={(recipe.imageUrl? recipe.imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCtimqUqhYHnZPcXp-w6nslx2XloJwsXVVJg&s')}  style={{ width: '500px', height: '400px' }} alt={recipe.title} />
       </div>
       <div className="card-body">
         <h3 className="card-title">{recipe.title}</h3>

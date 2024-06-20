@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import getBaseUrl from '../../utils/getBaseUrl';
+
 
 export default function CreateRecipe(){
+  const baseURL = getBaseUrl();
     const params = useParams();
     console.log(params);
 
@@ -19,7 +22,7 @@ export default function CreateRecipe(){
         const fetchRecipe = async () => {
           if (params.id) {
             try {
-              const res = await axios.get(`http://localhost:4000/recipes/${params.id}`);
+              const res = await axios.get(`${baseURL}/recipes/${params.id}`);
               const { title, imageUrl, description, ingredients, instructions } = res.data;
               setTitle(title);
               setImageUrl(imageUrl);
@@ -46,12 +49,12 @@ export default function CreateRecipe(){
     
           if (params.id) {
             // Update existing recipe
-            await axios.put(`http://localhost:4000/recipes/${params.id}`, recipeData, {
+            await axios.put(`${baseURL}/recipes/${params.id}`, recipeData, {
               headers: { 'x-auth-token': token },
             });
           } else {
             // Add new recipe
-            await axios.post('http://localhost:4000/recipes', recipeData, {
+            await axios.post(`${baseURL}/recipes`, recipeData, {
               headers: { 'x-auth-token': token },
             });
           }

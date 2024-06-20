@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import axios from 'axios';
+import getBaseUrl from '../../utils/getBaseUrl';
+
+const baseURL = getBaseUrl();
 
 const RecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
     const token = localStorage.getItem('token');
@@ -9,7 +12,7 @@ const RecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
     const handleDelete = async (id) => {
         console.log( id);
     try {   
-        await axios.delete(`http://localhost:4000/recipes/${id}`, {
+        await axios.delete(`${baseURL}/recipes/${id}`, {
           headers: { 'x-auth-token': token },
         });
         onDelete(id);  // Callback to parent component
@@ -22,13 +25,13 @@ const RecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
       try {
         if (isBookmarked) {
           await axios.post(
-            'http://localhost:4000/bookmarks/remove',
+            `${baseURL}/bookmarks/remove`,
             { recipeId: recipe._id },
             { headers: { 'x-auth-token': token } }
           );
         } else {
           await axios.post(
-            'http://localhost:4000/bookmarks/add',
+            `${baseURL}/bookmarks/add`,
             { recipeId: recipe._id },
             { headers: { 'x-auth-token': token } }
           );
@@ -42,7 +45,7 @@ const RecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
     return (
       <div className="col-md-4" key={recipe._id}>
         <div className="card mb-4">
-          <img src={recipe.imageUrl} className="card-img-top" style={{height: '300px'}} alt={recipe.title} />
+          <img src={(recipe.imageUrl? recipe.imageUrl :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCtimqUqhYHnZPcXp-w6nslx2XloJwsXVVJg&s')} className="card-img-top" style={{height: '300px'}} alt={recipe.title} />
           <div className="card-body">
             <h5 className="card-title">{recipe.title}</h5>
             <p className="card-text">Added by: {recipe.user.username}</p>

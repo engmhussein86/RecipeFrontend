@@ -5,8 +5,10 @@ import { FaEdit, FaTrash, FaBookmark , FaRegBookmark } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import RecipeCard from '../../components/RecipeCard';
 import DetailedRecipeCard from '../../components/DetailedRecipeCard';
+import getBaseUrl from '../../utils/getBaseUrl';
 
 export default function RecipeDetails(){
+  const baseURL = getBaseUrl();
     const params = useParams();
     console.log(params);
     const [recipe, setRecipe] = useState(null);
@@ -17,7 +19,7 @@ export default function RecipeDetails(){
     useEffect(() => {
         const fetchRecipe = async () => {
           try {
-            const res = await axios.get(`http://localhost:4000/recipes/${params.id}`);
+            const res = await axios.get(`${baseURL}/recipes/${params.id}`);
             setRecipe(res.data);
           } catch (err) {
             console.error('Error fetching recipe', err);
@@ -26,7 +28,7 @@ export default function RecipeDetails(){
 
         const fetchBookmarks = async () => {
           try {
-            const res = await axios.get('http://localhost:4000/bookmarks', {
+            const res = await axios.get(`${baseURL}/bookmarks`, {
               headers: {'x-auth-token': token },
             });
             const bookmarks = res.data.map(bookmark => bookmark._id);
