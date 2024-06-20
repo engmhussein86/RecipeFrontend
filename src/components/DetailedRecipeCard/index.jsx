@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import axios from 'axios';
 import getBaseUrl from '../../utils/getBaseUrl';
+import { useNavigate } from 'react-router-dom';
 
-const baseURL = getBaseUrl();
+
 const DetailedRecipeCard = ({ recipe, onDelete, onBookmark, isBookmarked }) => {
   const token = localStorage.getItem('token');
+  const navigateTo = useNavigate();
+  const baseURL = getBaseUrl();
 
   const handleDelete = async () => {
     try {

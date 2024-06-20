@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaBookmark , FaRegBookmark } from 'react-icons/fa';
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import getBaseUrl from '../../utils/getBaseUrl';
 
 export default function RecipeDetails(){
   const baseURL = getBaseUrl();
+  const navigateTo = useNavigate();
     const params = useParams();
     console.log(params);
     const [recipe, setRecipe] = useState(null);
@@ -45,7 +46,7 @@ export default function RecipeDetails(){
       
   const handleDelete =  () => {
     alert('succesfully delete');
-      history.push('/'); 
+    navigateTo('/'); 
   };
 
   const handleBookmark = async () => {
