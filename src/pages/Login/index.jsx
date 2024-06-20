@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import getBaseUrl from '../../utils/getBaseUrl';
 
 export default function Login(){
+  const baseURL = getBaseUrl();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -12,7 +14,7 @@ export default function Login(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          await axios.post('http://localhost:4000/users/login', { username, password })
+          await axios.post(`${baseURL}/users/login`, { username, password })
           .then((response) => {
             console.log(response);
             if(response.status ===200){

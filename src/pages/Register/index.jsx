@@ -3,8 +3,10 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import getBaseUrl from "../../utils/getBaseUrl";
 
 export default function Register(){
+  const baseURL = getBaseUrl();
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -16,7 +18,7 @@ export default function Register(){
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:4000/users/register',{username,email,password})
+            await axios.post(`${baseURL}/users/register`,{username,email,password})
             .then((response) => {
                 if(response.status ===201){
                     setSuccess("successfully created username : "+response.data.username+ " , You can login now ");

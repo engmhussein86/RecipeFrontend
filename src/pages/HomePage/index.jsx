@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecipeCard from '../../components/RecipeCard';
+import getBaseUrl from '../../utils/getBaseUrl';
 
 
 export default function HomePage(){
+  const baseURL = getBaseUrl();
     const [recipes, setRecipes] = useState([]);
     const [query, setQuery] = useState('');
     const [bookmarks, setBookmarks] = useState([]);
@@ -13,7 +15,7 @@ export default function HomePage(){
     useEffect(() => {
         const fetchRecipes = async () => {
           try {
-            const res = await axios.get('http://localhost:4000/recipes');
+            const res = await axios.get(`${baseURL}/recipes`);
             setRecipes(res.data);
           } catch (err) {
             console.error('Error fetching recipes', err);
@@ -23,7 +25,7 @@ export default function HomePage(){
         const fetchBookmarks = async () => {
           try {
             console.log(token);
-            const res = await axios.get('http://localhost:4000/bookmarks', {
+            const res = await axios.get(`${baseURL}/bookmarks`, {
               headers: {'x-auth-token': token },
             });
             setBookmarks(res.data.map(bookmark => bookmark._id));
@@ -43,7 +45,7 @@ export default function HomePage(){
       const handleSearch = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.get(`http://localhost:4000/recipes/search?query=${query}`);
+          const res = await axios.get(`${baseURL}/recipes/search?query=${query}`);
           setRecipes(res.data);
         } catch (err) {
           console.error('Error searching recipes', err);

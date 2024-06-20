@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecipeCard from '../../components/RecipeCard';
+import getBaseUrl from '../../utils/getBaseUrl';
 
 
 function BookmarkRecipes() {
+    const baseURL = getBaseUrl();
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
 
@@ -11,13 +13,13 @@ function BookmarkRecipes() {
     const fetchBookmarkedRecipes = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:4000/bookmarks', {
+        const res = await axios.get(`${baseURL}/bookmarks`, {
           headers: { 'x-auth-token': token },
         });
         const bookmarkedRecipeIds = res.data.map(bookmark => bookmark._id);
         setBookmarks(bookmarkedRecipeIds);
 
-        const recipesRes = await axios.get('http://localhost:4000/recipes');
+        const recipesRes = await axios.get(`${baseURL}/recipes`);
         const filteredRecipes = recipesRes.data.filter(recipe =>
           bookmarkedRecipeIds.includes(recipe._id)
         );
