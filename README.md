@@ -53,8 +53,7 @@ This is the frontend part of the Recipe Manager application built with React. It
       return 'http://localhost:4000'; # or your development backend URL
     } else {
       return 'https://recipebackend-lx5k.onrender.com'; # or your production backend URL
-    }
-  }; 
+    } }; 
     ```
 
 ## Running the Application
